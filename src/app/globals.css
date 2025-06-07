@@ -12,6 +12,8 @@ html,
 body {
   box-sizing: border-box;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
 h1,
@@ -19,9 +21,17 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+ul,
+li,
+body,
+html {
   margin: 0;
   padding: 0;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 img {
@@ -30,7 +40,7 @@ img {
 
 .wrapper {
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 5rem;
   padding: 2rem;
   box-shadow: rgba(31, 25, 25, 0.2) 0px 1px 5px 0px;
   width: 50%;
@@ -74,6 +84,7 @@ article a {
   align-items: center;
   gap: 2rem;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .filter-wrapper input,
@@ -93,4 +104,18 @@ article a {
   font-size: 1.2rem;
   border: solid 1px #1e1e1e;
   /* appearance: none; */
+}
+
+@media only screen and (max-width: 767px) {
+  .wrapper {
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding: 2rem;
+    box-shadow: none;
+    width: 100%;
+  }
+
+  html {
+    font-size: 18px;
+  }
 }

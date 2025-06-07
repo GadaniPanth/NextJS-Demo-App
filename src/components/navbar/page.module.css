@@ -2,11 +2,21 @@
   display: flex;
   gap: 1.3rem;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   padding: 1rem 2rem;
+  background-color: white;
+  z-index: 9999;
+  width: 100%;
 }
 
 .navbar a {
   font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar a {
+    font-size: 1.8rem;
+  }
 }
