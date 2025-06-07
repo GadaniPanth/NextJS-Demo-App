@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./page.module.css";
+import styles from "./products.module.css";
 import { useEffect, useState } from "react";
 
 export default function Products() {
