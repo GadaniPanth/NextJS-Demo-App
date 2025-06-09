@@ -13,6 +13,12 @@ async function getPosts(search: string | null) {
   return data.posts;
 }
 
+type Post = {
+  id: number;
+  title: string;
+  // add other fields if needed
+};
+
 async function getTags() {
   const res = await fetch("https://dummyjson.com/posts/tag-list");
   const data = await res.json();
@@ -20,9 +26,9 @@ async function getTags() {
 }
 
 export default function HomePage() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   // const [search, setSearch] = useState("");
-  const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState<string[]>([]);
   const [selectedTag, setSelectedTag] = useState("");
 
   useEffect(() => {
@@ -61,7 +67,7 @@ export default function HomePage() {
         </div>
         <ul>
           {posts.length > 0 ? (
-            posts.map((post: any) => (
+            posts.map((post) => (
               <li key={post.id}>
                 <Link href={`/blog/${post.id}`}>{post.title}</Link>
               </li>

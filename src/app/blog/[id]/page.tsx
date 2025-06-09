@@ -1,29 +1,48 @@
-// app/blog/[id]/page.tsx
+// import Link from "next/link";
 
-import Link from "next/link";
+// async function getPost(id: string) {
+//   const res = await fetch(`https://dummyjson.com/posts/${id}`);
+//   if (!res.ok) {
+//     throw new Error("Post not found");
+//   }
+//   return res.json();
+// }
 
-async function getPost(id: string) {
-  const res = await fetch(`https://dummyjson.com/posts/${id}`);
-  if (!res.ok) throw new Error("Post not found");
-  return res.json();
-}
+// async function getAllPostIds() {
+//   const res = await fetch("https://dummyjson.com/posts");
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch posts");
+//   }
+//   const data = await res.json();
+//   return data.posts.map((post: { id: number }) => post.id.toString());
+// }
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
+// export async function generateStaticParams() {
+//   const ids = await getAllPostIds();
 
-export default async function PostPage({ params }: PageProps) {
-  const post = await getPost(params.id);
+//   return ids.map((id) => ({
+//     id,
+//   }));
+// }
 
+// export default async function PostPage({ params }: { params: { id: string } }) {
+//   const post = await getPost(params.id);
+
+//   return (
+//     <div className="wrapper">
+//       <article>
+//         <h1>{post.title}</h1>
+//         <p>{post.body}</p>
+//         <Link href="/">Back to home</Link>
+//       </article>
+//     </div>
+//   );
+// }
+
+export default async function PostPage() {
   return (
     <div className="wrapper">
-      <article>
-        <h1>{post.title}</h1>
-        <p>{post.body}</p>
-        <Link href="/">Back to home</Link>
-      </article>
+      <article>,mpadpawdlapwpjd</article>
     </div>
   );
 }
