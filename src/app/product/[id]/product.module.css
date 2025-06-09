@@ -100,10 +100,6 @@
   .products_wrapper {
     width: 80%;
   }
-
-  html {
-    font-size: 13px;
-  }
 }
 
 @media only screen and (max-width: 486px) {
@@ -114,9 +110,5 @@
 
   .products_image {
     height: 390px;
-  }
-
-  html {
-    font-size: 15px;
   }
 }
