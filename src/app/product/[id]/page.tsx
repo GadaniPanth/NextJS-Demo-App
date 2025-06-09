@@ -20,12 +20,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const res = await fetch(`https://dummyjson.com/products/${params.id}`);
+export type Params = Promise<{ id: string }>;
+
+export default async function ProductPage({ params }: { params: Params }) {
+  const { id } = await params;
+
+  const res = await fetch(`https://dummyjson.com/products/${id}`);
   if (!res.ok) throw new Error("Product not found");
 
   const product: Product = await res.json();
