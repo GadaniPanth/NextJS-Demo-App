@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "./page.module.css";
 
 async function getPosts(search: string | null) {
-  const res = await fetch(search
-    ? `https://dummyjson.com/posts/tag/${search}?limit=10`
-    : "https://dummyjson.com/posts?limit=10");
+  const res = await fetch(
+    search
+      ? `https://dummyjson.com/posts/tag/${search}?limit=10`
+      : "https://dummyjson.com/posts?limit=10"
+  );
   const data = await res.json();
   return data.posts;
 }
 
 async function getTags() {
-  const res = await fetch('https://dummyjson.com/posts/tag-list');
+  const res = await fetch("https://dummyjson.com/posts/tag-list");
   const data = await res.json();
   return data;
 }
@@ -22,7 +23,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState([]);
   // const [search, setSearch] = useState("");
   const [tagList, setTagList] = useState([]);
-  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedTag, setSelectedTag] = useState("");
 
   useEffect(() => {
     setPosts([]);
@@ -46,7 +47,7 @@ export default function HomePage() {
           value={search}
         /> */}
 
-         <select
+          <select
             onChange={(e) => setSelectedTag(e.target.value)}
             value={selectedTag}
           >
@@ -69,7 +70,6 @@ export default function HomePage() {
             <li>Loading...</li> // Always show a placeholder initially
           )}
         </ul>
-
       </div>
     </main>
   );
