@@ -4,7 +4,8 @@
   padding: 2rem;
   box-shadow: rgba(31, 25, 25, 0.2) 0px 0px 10px 0px;
   width: 50%;
-  background: #f5f3f3;
+  background: #ebebeb;
+  /* background: #f5f3f3; */
   clip-path: polygon(
     8% 0,
     100% 0,
@@ -80,6 +81,11 @@
 
 .products_wrapper a {
   font-size: 1.6rem;
+  color: #3e3e3e;
+}
+
+.products_wrapper a:hover {
+  color: #000;
 }
 
 .swiper_slide {
