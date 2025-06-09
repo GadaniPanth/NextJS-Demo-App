@@ -9,9 +9,18 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
+type Product = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  images: string[];
+};
+
 export default function ProductPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     if (!id) return;

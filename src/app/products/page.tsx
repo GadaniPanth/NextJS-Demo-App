@@ -4,9 +4,18 @@ import Link from "next/link";
 import styles from "./products.module.css";
 import { useEffect, useState } from "react";
 
+type Product = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  images: string[];
+};
+
 export default function Products() {
   const [loadingText, setLoadingText] = useState("");
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchProduct, setSearchProduct] = useState("");

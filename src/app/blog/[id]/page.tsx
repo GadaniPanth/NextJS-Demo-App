@@ -6,7 +6,13 @@ async function getPost(id: string) {
   return res.json();
 }
 
-export default async function PostPage({ params }: any) {
+interface PostParams {
+  params: {
+    id: string;
+  };
+}
+
+export default async function PostPage({ params }: PostParams) {
   const postId = params.id;
   const post = await getPost(postId);
 
