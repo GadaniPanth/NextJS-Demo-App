@@ -16,7 +16,6 @@ async function getPosts(search: string | null) {
 type Post = {
   id: number;
   title: string;
-  // add other fields if needed
 };
 
 async function getTags() {
@@ -73,7 +72,7 @@ export default function HomePage() {
               </li>
             ))
           ) : (
-            <li>Loading...</li> // Always show a placeholder initially
+            <li>Loading...</li>
           )}
         </ul>
       </div>

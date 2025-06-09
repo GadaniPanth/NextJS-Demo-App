@@ -1,48 +1,42 @@
-// import Link from "next/link";
+// app/blog/[id]/page.tsx
+"use client";
 
-// async function getPost(id: string) {
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+interface Post {
+  title: string;
+  body: string;
+}
+
+// async function getPost(id: any) {
 //   const res = await fetch(`https://dummyjson.com/posts/${id}`);
-//   if (!res.ok) {
-//     throw new Error("Post not found");
-//   }
+//   if (!res.ok) throw new Error("Post not found");
 //   return res.json();
 // }
 
-// async function getAllPostIds() {
-//   const res = await fetch("https://dummyjson.com/posts");
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch posts");
-//   }
-//   const data = await res.json();
-//   return data.posts.map((post: { id: number }) => post.id.toString());
-// }
+export default function PostPage() {
+  const { id } = useParams();
+  // const post = await getPost(id);
+  const [post, setPost] = useState<Post | null>(null);
 
-// export async function generateStaticParams() {
-//   const ids = await getAllPostIds();
+  useEffect(() => {
+    if (!id) return;
 
-//   return ids.map((id) => ({
-//     id,
-//   }));
-// }
+    fetch(`https://dummyjson.com/posts/${id}`)
+      .then((res) => res.json())
+      .then(setPost)
+      .catch(console.error);
+  }, [id]);
 
-// export default async function PostPage({ params }: { params: { id: string } }) {
-//   const post = await getPost(params.id);
-
-//   return (
-//     <div className="wrapper">
-//       <article>
-//         <h1>{post.title}</h1>
-//         <p>{post.body}</p>
-//         <Link href="/">Back to home</Link>
-//       </article>
-//     </div>
-//   );
-// }
-
-export default async function PostPage() {
   return (
     <div className="wrapper">
-      <article>,mpadpawdlapwpjd</article>
+      <article>
+        <h1>{post && post.title}</h1>
+        <p>{post && post.body}</p>
+        <Link href="/">Back to home</Link>
+      </article>
     </div>
   );
 }
