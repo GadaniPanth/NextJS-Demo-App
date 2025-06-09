@@ -1,40 +1,36 @@
-// app/blog/[id]/page.tsx
-"use client";
-
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 interface Post {
+  id: string;
   title: string;
   body: string;
 }
 
-// async function getPost(id: any) {
-//   const res = await fetch(`https://dummyjson.com/posts/${id}`);
-//   if (!res.ok) throw new Error("Post not found");
-//   return res.json();
-// }
+export async function generateStaticParams() {
+  const res = await fetch("https://dummyjson.com/posts");
+  const data = await res.json();
 
-export default function PostPage() {
-  const { id } = useParams();
-  // const post = await getPost(id);
-  const [post, setPost] = useState<Post | null>(null);
+  return data.posts.map((post: { id: number }) => ({
+    params: { id: post.id.toString() },
+  }));
+}
 
-  useEffect(() => {
-    if (!id) return;
+export type Params = Promise<{ id: string }>;
 
-    fetch(`https://dummyjson.com/posts/${id}`)
-      .then((res) => res.json())
-      .then(setPost)
-      .catch(console.error);
-  }, [id]);
+export default async function PostPage({ params }: { params: Params }) {
+  const { id } = await params;
+  // console.log(id);
+
+  const res = await fetch(`https://dummyjson.com/posts/${id}`);
+  if (!res.ok) throw new Error("Post not found");
+
+  const post: Post = await res.json();
 
   return (
     <div className="wrapper">
       <article>
-        <h1>{post && post.title}</h1>
-        <p>{post && post.body}</p>
+        <h1>{post.title}</h1>
+        <p>{post.body}</p>
         <Link href="/">Back to home</Link>
       </article>
     </div>
