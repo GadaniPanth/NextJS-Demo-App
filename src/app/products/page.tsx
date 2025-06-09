@@ -75,8 +75,8 @@ export default function Products() {
         >
           <option value="">All Categorys</option>
           {categoryList.length > 0 &&
-            categoryList.map((category) => (
-              <option key={category} value={category}>
+            categoryList.map((category, index) => (
+              <option key={index} value={category}>
                 {category}
               </option>
             ))}
@@ -84,37 +84,40 @@ export default function Products() {
       </div>
       <ul className={styles.products_grid}>
         {products.length > 0 ? (
-          products.map((product) => (
-            <Link
-              href={`/product/${product.id}`}
-              key={product.id}
-              className={styles.product_card}
-            >
-              <div className={styles.card_image}>
-                {!imageLoaded[product.id] && (
-                  <div className={styles.image_loader}></div>
-                )}
-                <img
-                  src={product.thumbnail}
-                  alt={product.title}
-                  style={{
-                    display: imageLoaded[product.id] ? "block" : "none",
-                  }}
-                  onLoad={() =>
-                    setImageLoaded((prev) => ({ ...prev, [product.id]: true }))
-                  }
-                />
-              </div>
-
-              <div className={styles.card_text}>
-                <div className={styles.card_head}>
-                  <h1 className={styles.title}>{product.title}</h1>
+          products.map((product, index) => (
+            <div key={index} className={styles.shadow_wrapper}>
+              <Link
+                href={`/product/${product.id}`}
+                className={styles.product_card}
+              >
+                <div className={styles.card_image}>
+                  {!imageLoaded[product.id] && (
+                    <div className={styles.image_loader}></div>
+                  )}
+                  <img
+                    src={product.thumbnail}
+                    alt={product.title}
+                    style={{
+                      display: imageLoaded[product.id] ? "block" : "none",
+                    }}
+                    onLoad={() =>
+                      setImageLoaded((prev) => ({
+                        ...prev,
+                        [product.id]: true,
+                      }))
+                    }
+                  />
                 </div>
-                <div className={styles.card_body}>
-                  <h3 className={styles.product_price}>${product.price}</h3>
+                <div className={styles.card_text}>
+                  <div className={styles.card_head}>
+                    <h1 className={styles.title}>{product.title}</h1>
+                  </div>
+                  <div className={styles.card_body}>
+                    <h3 className={styles.product_price}>${product.price}</h3>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))
         ) : (
           <h1>{loadingText}</h1>
