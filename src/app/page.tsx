@@ -1,7 +1,8 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Link from "next/link";
+import TagFilter from "./TagFilter";
 
 async function getPosts(search: string | null) {
   const res = await fetch(
@@ -18,33 +19,56 @@ type Post = {
   title: string;
 };
 
+// export async function generateStaticParams() {
+//   const res = await fetch("https://dummyjson.com/posts");
+//   const data = await res.json();
+
+//   return data.posts.map((post: { id: number }) => ({
+//     params: { id: post.id.toString() },
+//   }));
+// }
+
 async function getTags() {
   const res = await fetch("https://dummyjson.com/posts/tag-list");
   const data = await res.json();
   return data;
 }
 
-export default function HomePage() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  // const [search, setSearch] = useState("");
-  const [tagList, setTagList] = useState<string[]>([]);
-  const [selectedTag, setSelectedTag] = useState("");
+export type Params = Promise<{ tag: string }>;
 
-  useEffect(() => {
-    setPosts([]);
-    const delay = setTimeout(() => {
-      getPosts(selectedTag).then(setPosts);
-      getTags().then(setTagList);
-    }, 300);
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: Params;
+}) {
+  // const [posts, setPosts] = useState<Post[]>([]);
+  // // const [search, setSearch] = useState("");
+  // const [tagList, setTagList] = useState<string[]>([]);
+  // const [selectedTag, setSelectedTag] = useState("");
 
-    return () => clearTimeout(delay);
-  }, [selectedTag]);
+  // useEffect(() => {
+  //   setPosts([]);
+  //   const delay = setTimeout(() => {
+  //     getPosts(selectedTag).then(setPosts);
+  //     getTags().then(setTagList);
+  //   }, 300);
+
+  //   return () => clearTimeout(delay);
+  // }, [selectedTag]);
+
+  const resolvedParams: { tag?: string } = await (searchParams ??
+    Promise.resolve({}));
+
+  const tag = resolvedParams.tag || "";
+
+  const [posts, tags] = await Promise.all([getPosts(tag), getTags()]);
 
   return (
     <main>
       <div className="wrapper">
         <h1>My Blog</h1>
         <div className="filter-wrapper">
+          <TagFilter tags={tags} />
           {/* <input
           type="text"
           placeholder="Search"
@@ -52,7 +76,7 @@ export default function HomePage() {
           value={search}
         /> */}
 
-          <select
+          {/* <select
             onChange={(e) => setSelectedTag(e.target.value)}
             value={selectedTag}
           >
@@ -62,11 +86,11 @@ export default function HomePage() {
                 {tag}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
         <ul>
           {posts.length > 0 ? (
-            posts.map((post) => (
+            posts.map((post: Post) => (
               <li key={post.id}>
                 <Link href={`/blog/${post.id}`}>{post.title}</Link>
               </li>
